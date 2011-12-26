@@ -77,7 +77,7 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			for( i=0; i != arguments.length; i++) {
 				arg = arguments[i]; 
 				if( arg === undefined || arg === null ) {
-					throw new Error("Argument number " + i + ", in function " + funcname + " must not be " + arg + "!"); 
+					throw new Error("Argument number " + i + " in function " + funcname + " must not be " + arg + "!"); 
 				}
 			}
 			//call original function 
