@@ -3,14 +3,6 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 (function (){
 	"use strict"; 
 
-	//this properties hae a special behaviour and should handled differrently than the other properties. 
-	var blacklist = [
-		"drawingBufferHeight", //getter returns the current canvas height.
-		"canvas", //should never change but better safe than sorry. 
-		"drawingBufferWidth", //getter returns the current canvas width.
-		"getSaveContext" //because I add this funtion to the WebGL prototype I also should ignore that one. 
-	];
-
 	return function() { return safeContext(this); };  
 
 	function safeContext (gl) { 
@@ -27,44 +19,33 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			val = gl[k]; 
 			type = typeof val; 
 
-			if(blacklist.indexOf(k) !== -1) {
-				return null; 
-			}
-			if(type === "number") {
-				return [k, val]; 
-			}				
 			if(type === "function") {
 				return [k, createSafeCaller(gl, val, k)]; 
 			}
-			throw new Error("unreachable!"); 
-		}).filter(function(pair) { 
-			return pair; //filter only non null pairs. 
+			return [k]; 
 		});
 
-		safegl = Object.create(window["WebGLRenderingContext"]); 
+		safegl = {}; 
 
 		//Add static properties. 
 		for(i = 0; i != map.length; i++) {
 			pair = map[i]; 
 			key = pair[0]; 
 			value = pair[1]; 
-			(function (value) {
-				Object.defineProperty(safegl, key, {
-					get : function() { return value; },
-					enumerable : true
-				}); 			
-			}(value)); 
-		}
-
-		//Add dynamic properties
-		for(i = 0; i != blacklist.length; i++) {
-			key = blacklist[i]; 
-			(function (key) { 
-				Object.defineProperty(safegl, key, {
-					get : function() { return gl[key]; },
-					enumerable : true
-				}); 
-			}(key)); 
+		
+			if(typeof value === "function") {
+				//override behaviour with my own function 
+				safegl[key] = value; 
+			} else {
+				(function(key) { 
+					//same behaviour as the original gl context. 
+					Object.defineProperty(safegl, key, {
+						get : function() { return gl[key]; }, 
+						set : function(v) { gl[key] = v; }, 
+						enumerable : true 
+					}); 
+				}(key)); 
+			}
 		}
 
 		return safegl; 
