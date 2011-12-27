@@ -40,3 +40,9 @@ Doing that however with a safe context will result in a error.
 This helps you writing much more reliable code.
 
 Have fun! 
+
+TODO
+----
+
+* check if a WebGL function can return null. 
+* check for the correct amount of argument paramters. 

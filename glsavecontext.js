@@ -76,12 +76,12 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			//check Arguments 
 			for( i=0; i != arguments.length; i++) {
 				arg = arguments[i]; 
-				if( arg === undefined || arg === null ) {
+				if( arg === undefined ) {
 					throw new Error("Argument number " + i + " in function " + funcname + " must not be " + arg + "!"); 
 				}
 			}
 			//call original function 
-			func.apply(gl, arguments); 	
+			return func.apply(gl, arguments); 	
 		};
 	} 
 }()); 
