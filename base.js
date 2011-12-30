@@ -2,6 +2,7 @@ if(window["WebGLRenderingContext"]) {
 window["WebGLRenderingContext"]["prototype"]["getSaveContext"] = 
 (function (){
 	"use strict"; 
+	// var METHODS = ... 
 	//= utils/glmethods
 	var UNKNOWN = -1; 
 
@@ -13,6 +14,9 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		keys = []; 
 
 		for	(key in gl) {
+			if(key === "getSaveContext") {
+				continue; //ignore myself
+			}
 			keys.push(key); 
 		}
 
@@ -54,21 +58,20 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	}
 
 	function createSafeCaller (gl, func, funcname) {
-		var requiredLength, referenceFuncDef; 
-		//check Length			
-		referenceFuncDef = METHODS.filter(function(f) { return f.name === funcname; })[0];
+		var referenceFuncDef = METHODS[funcname]; 
 		if( !referenceFuncDef ) {
-			requiredLength = UNKNOWN; 
 			console.warn("glSaveContext.js: couldn't find reference definition for method " + funcname + "."); 
-		} else {
-			requiredLength = referenceFuncDef.length; 
-		}		
+			//default behaviour
+			return function() {				
+				return func.apply(gl, arguments); 	
+			};
+		} 		
 
 		return function() {
 			var i, arg; 
 			//check Arguments 
 			//check Length			
-			if(requiredLength !== UNKNOWN && requiredLength !== arguments.length) {
+			if(referenceFuncDef.args.length !== arguments.length) {
 				throw new Error("function " + funcname + " was called with the wrong amount of arguments. " + arguments.length + " instead of " + requiredLength + "."); 
 			}
 			

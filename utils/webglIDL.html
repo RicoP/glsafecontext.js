@@ -1,4 +1,64 @@
 <body>
+<script type="text/javascript" src="../lib/WebIDLParser.js"> </script> 
+<script type="text/javascript">
+var idl, out, module, webGlContext, methods, finalObject, i, json, m, returnType, args; 
+window.onload = function() { 
+///////////////////////////////////////
+idl = document.getElementById("idl").value;
+out = document.createElement("textarea"); 
+module = WebIDLParser.parse(idl)[0]; 
+
+webGlContext = module.definitions.filter(function(d) {
+	return d.name === "WebGLRenderingContext"; 
+})[0]; 
+
+methods = webGlContext.members.filter(function(m) { 
+	return m.type === "operation"; 
+}); 
+
+finalObject = {}; 
+
+for(i = 0; i != methods.length; i++) {
+	m = methods[i]; 
+	
+	if(finalObject[m.name]) {
+		console.log("skip " + m.name); 
+		continue; 
+	}
+	
+	returnType = getIdlType(m.idlType); 
+	
+	args = m.arguments.map(function(arg) {
+		return { 
+			name : arg.name,	
+			type : arg.type.idlType 
+		}
+	}); 
+	
+	finalObject[m.name] = {
+		returnType : returnType, 
+		args : args 
+	}
+}
+
+json = JSON.stringify(finalObject); 
+
+out.rows = 30; 
+out.cols = 80; 
+out.innerHTML = json; 
+document.body.appendChild(out); 
+
+function getIdlType(o) {
+	if(typeof m.idlType === "string") {
+		return m.idlType; 
+	} else {
+		return m.idlType.idlType; 
+	}
+}
+
+///////////////////////////////////////
+}
+</script> 
 <textarea id="idl" style="visibility:hidden;position:absolute;left:0px;top:0px;">
 /*
 This is 1:1 the webGL IDL from https://www.khronos.org/registry/webgl/specs/1.0/webgl.idl
@@ -745,27 +805,4 @@ interface WebGLContextEvent : Event {
 
 };
 </textarea> 
-<script type="text/javascript" src="../lib/WebIDLParser.js"> </script> 
-<script type="text/javascript">
-var idl = document.getElementById("idl").value;
-var out = document.createElement("textarea"); 
-var module = WebIDLParser.parse(idl)[0]; 
-
-var webGlContext = module.definitions.filter(function(d) {
-	return d.name === "WebGLRenderingContext"; 
-})[0]; 
-
-var methods = webGlContext.members.filter(function(m) { 
-	return m.type === "operation"; 
-}).map(function(op) { 
-	return { name : op.name, length : op.arguments.length }; 
-}); 
-
-var json = JSON.stringify(methods); 
-
-out.rows = 30; 
-out.cols = 80; 
-out.innerHTML = json; 
-document.body.appendChild(out); 
-</script>  
 </body> 
