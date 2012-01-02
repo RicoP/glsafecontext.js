@@ -1,7 +1,38 @@
 <body>
 <script type="text/javascript" src="../lib/WebIDLParser.js"> </script> 
 <script type="text/javascript">
-var idl, out, module, webGlContext, methods, finalObject, i, json, m, returnType, args; 
+"use strict"; 
+var idl, out, module, webGlContext, methods, finalObject, i, json, m, returnType, args, obj, isSequence, typeMap;
+
+typeMap = {
+	"ArrayBuffer" : "arraybuffer", 
+	"ArrayBufferView" : "arraybufferview", 
+	"DOMString" : "string", 
+	"FloatArray" : "float32array", 
+	"GLbitfield" : "number", 
+	"GLboolean" : "boolean", 
+	"GLclampf" : "number", 
+	"GLenum" : "number", 
+	"GLfloat" : "number", 
+	"GLint" : "number", 
+	"GLintptr" : "number", 
+	"GLsizei" : "number", 
+	"GLsizeiptr" : "number", 
+	"GLuint" : "number", 
+	"HTMLCanvasElement" : "htmlcanvaselement", 
+	"HTMLImageElement" : "htmlimageelement", 
+	"HTMLVideoElement" : "htmlvideoelement", 
+	"ImageData" : "imagedata", 
+	"Int32Array" : "int32array", 
+	"WebGLBuffer" : "webglbuffer", 
+	"WebGLFramebuffer" : "webglframebuffer", 
+	"WebGLProgram" : "webglprogram", 
+	"WebGLRenderbuffer" : "webglrenderbuffer", 
+	"WebGLShader" : "webglshader", 
+	"WebGLTexture" : "webgltexture", 
+	"WebGLUniformLocation" : "webgluniformlocation"
+};
+
 window.onload = function() { 
 ///////////////////////////////////////
 idl = document.getElementById("idl").value;
@@ -19,27 +50,36 @@ methods = webGlContext.members.filter(function(m) {
 finalObject = {}; 
 
 for(i = 0; i != methods.length; i++) {
+	isSequence = false; 
 	m = methods[i]; 
-	
-	if(finalObject[m.name]) {
-		console.log("skip " + m.name); 
-		continue; 
-	}
-	
+
 	returnType = getIdlType(m.idlType); 
 	
 	args = m.arguments.map(function(arg) {
+		isSequence = isSequence || arg.type && arg.type.sequence; //Nasty: Have sideeffects in this loop to check if any of the argument parameters is a sequence so we don't need nested filter methods to check this. 
 		return { 
 			name : arg.name,	
 			type : arg.type.idlType 
 		}
 	}); 
+
+	if(isSequence) {
+		continue; 
+	}
 	
-	finalObject[m.name] = {
+	obj = {
 		returnType : returnType, 
-		args : args 
+		args : args,
+		argsStructure : toTypeStructure( args ) 
+	}
+
+	if(! finalObject[m.name] ) {
+		finalObject[m.name] = [obj];
+	} else {
+		finalObject[m.name].push(obj);
 	}
 }
+
 
 json = JSON.stringify(finalObject); 
 
@@ -54,6 +94,14 @@ function getIdlType(o) {
 	} else {
 		return m.idlType.idlType; 
 	}
+}
+
+function toTypeStructure( args ) {
+	return args.map(function(arg) { return typeMap[arg.type]; }); 
+}
+
+function toType(obj) {
+	return ({}).toString.call(obj).match(/\s([a-zA-Z0-9]+)/)[1].toLowerCase();
 }
 
 ///////////////////////////////////////

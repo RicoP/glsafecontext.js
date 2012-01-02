@@ -89,9 +89,9 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	}
 
 	function createSaveCaller (gl, func, funcname) {
-		var referenceFuncDef = METHODS[funcname]; 
-		if( !referenceFuncDef ) {
-			console.warn("glSaveContext.js: couldn't find reference definition for method " + funcname + "."); 
+		var glMethods = METHODS[funcname]; 
+		if( !glMethods ) {
+			console.warn("couldn't find reference definition for method " + funcname + "."); 
 			//default behaviour
 			return function() {
 				return func.apply(gl, arguments); 	
@@ -99,29 +99,39 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		}
 
 		return function() {
-			var i, arg, ret, type, name; 
-			//check Arguments 
-			//check Length			
-			if(referenceFuncDef.args.length !== arguments.length) {
-				throw new Error("function " + funcname + " was called with the wrong amount of arguments. " + arguments.length + " instead of " + referenceFuncDef.args.length + "."); 
-			}
-			
-			//check if type is undefined
-			for( i=0; i != arguments.length; i++) {
-				arg = arguments[i]; 
-				type = referenceFuncDef.args[i].type; 
-				name = referenceFuncDef.args[i].name; 
+			var i, arg, argTypes, ret, type, name, funcDef; 
 
-				if(!typeChecker[type](arg)) {
-					throw new Error("Argument " + name + " in function " + funcname + " was expected to be " + type + " but instead was called with " + arg  + "."); 
+			argTypes = []; 
+			//get Correct reference function
+			
+			for( i = 0; i != arguments.length; i++ ) {
+				argTypes[i] = toType( arguments[i] ); 
+			}
+
+			for( i = 0; i != glMethods.length; i++ ) {
+				if(glMethods[i].argsStructure.toString() === argTypes.toString()) {
+					funcDef = glMethods[i]; 
 				}
 			}
+
+			if(!funcDef) {
+				throw new Error("couldn't apply arguments (" + argTypes.toString() + ") to any of the possible schemas."); 
+			}
+
+			//check Arguments 
+			//check if type is correct
+			for( i=0; i != arguments.length; i++) {
+				arg = arguments[i]; 
+				type = funcDef.args[i].type; 
+				name = funcDef.args[i].name; 
+
+				if(!typeChecker[type](arg)) {
+					throw new Error("Argument '" + name + "' in function " + funcname + " was expected to be '" + type + "' but instead was called with value " + arg  + "."); 
+				}
+			}
+
 			//call original function 
-			ret = func.apply(gl, arguments); 
-
-			//TODO Test return value. 
-
-			return ret;
+			return func.apply(gl, arguments); 
 		};
 	}
 
