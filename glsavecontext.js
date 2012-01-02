@@ -1446,10 +1446,10 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		"GLuint" : isInt
 	};
 
-	return function() { return safeContext(this); };  
+	return function() { return saveContext(this); };  
 
-	function safeContext (gl) { 
-		var key, value, i, pair, safegl, map, keys; 
+	function saveContext (gl) { 
+		var key, value, i, pair, savegl, map, keys; 
 
 		keys = []; 
 
@@ -1465,13 +1465,19 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			val = gl[k]; 
 			type = typeof val; 
 
-			if(type === "function") {
-				return [k, createSafeCaller(gl, val, k)]; 
+			//HACK: texImage2D overloads are much diverse. 
+			if(type === "function" && k !== "texImage2D") {
+				return [k, createSaveCaller(gl, val, k)]; 
 			}
+
+			if(k === "texImage2D") {
+				return [k, function() { val.apply(gl, arguments); }]; 
+			}
+			
 			return [k]; 
 		});
 
-		safegl = {}; 
+		savegl = { "isSaveContext" : true }; 
 
 		//Add static properties. 
 		for(i = 0; i != map.length; i++) {
@@ -1481,11 +1487,11 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		
 			if(typeof value === "function") {
 				//override behaviour with my own function 
-				safegl[key] = value; 
+				savegl[key] = value; 
 			} else {
 				(function(key) { 
 					//same behaviour as the original gl context. 
-					Object.defineProperty(safegl, key, {
+					Object.defineProperty(savegl, key, {
 						get : function() { return gl[key]; }, 
 						set : function(v) { gl[key] = v; }, 
 						enumerable : true 
@@ -1494,10 +1500,10 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			}
 		}
 
-		return safegl; 
+		return savegl; 
 	}
 
-	function createSafeCaller (gl, func, funcname) {
+	function createSaveCaller (gl, func, funcname) {
 		var referenceFuncDef = METHODS[funcname]; 
 		if( !referenceFuncDef ) {
 			console.warn("glSaveContext.js: couldn't find reference definition for method " + funcname + "."); 
@@ -1553,7 +1559,7 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 
 		if(toType(v) === "array") {
 			for(var i = 0; i != v.length; i++) {
-				if(!isFloat(v)) {
+				if(!isFloat(v[i])) {
 					return false; 
 				}
 			}
@@ -1570,7 +1576,7 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 
 		if(toType(v) === "array") {
 			for(var i = 0; i != v.length; i++) {
-				if(!isInt(v)) {
+				if(!isInt(v[i])) {
 					return false; 
 				}
 			}
