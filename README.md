@@ -1,9 +1,9 @@
 glSafeContext.js
 ================
 
-One problem in learning WebGL lays in the nature of javascript to accept every kind of function parameter. Even when you missspell a variable name the WebGL methods accept your statement and simply fail silently. 
+One problem with learning WebGL lays in the nature of javascript to accept every kind of function parameter. Even when you call a methoud with wrong argument types the method will fail silently you have to prepare yourself with a long debuging session in order to find the bug. 
 
-This Library makes WebGL behave much more finicky and shows errors of you much more direct. 
+This Library makes WebGL behave much more finicky and shows errors of you much more direct. It checks every method argument parameter for the right type and issues wrong datatypes much more direct. 
 
 usage
 -----
@@ -35,14 +35,9 @@ WebGL will simply do nothing instead of pointing out that something went wrong.
 Doing that however with a safe context will result in a error. 
 
     sgl.clearColor(0,0,0,1); 
-    sgl.clear(gl.COLOR_BUFER_BIT); //Error: Argument number 0 in function clear must not be undefined!
+    sgl.clear(gl.COLOR_BUFER_BIT); //Error: Argument mask in function clear was expected to be GLbitfield but instead was called with undefined.
 
 This helps you writing much more reliable code.
 
 Have fun! 
 
-TODO
-----
-
-* check if a WebGL function can return null. 
-* check for the correct amount of argument paramters. 

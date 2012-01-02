@@ -121,8 +121,9 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 
 	// ~~~ Type checking methods ~~~  
 	function checkType(type) {
+		var lowerType = type.toLowerCase(); 
 		return function(v) {
-			return v === null || toType(v) === type.toLowerCase(); 
+			return v === null || toType(v) === lowerType; 
 		}
 	}
 
@@ -131,8 +132,9 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	}
 
 	function isFloatArray(v) {
-		if(toType(v) === "floatarray" || toType(v) === "float32array") 
+		if(toType(v) === "float32array" || toType(v) === "floatarray") {
 			return true;
+		}
 
 		if(toType(v) === "array") {
 			for(var i = 0; i != v.length; i++) {
@@ -147,8 +149,9 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	}
 	
 	function isInt32Array(v) {
-		if(toType(v) === "int32array") 
+		if(toType(v) === "int32array") {
 			return true; 
+		}
 
 		if(toType(v) === "array") {
 			for(var i = 0; i != v.length; i++) {
