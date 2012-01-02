@@ -5,10 +5,9 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 
 	// var METHODS ... 
 	//= utils/glmethods
-
-	var typeChecker = {
-		"ArrayBufferView" : isArrayBuffer,
-		"ArrayBuffer" : isArrayBuffer,
+	var checkType = {
+		"ArrayBufferView" : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
+		"ArrayBuffer" : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
 		"WebGLBuffer" : checkType("WebGLBuffer"), 
 		"WebGLFrameBuffer" : checkType("WebGLFrameBuffer"), 
 		"WebGLProgram" : checkType("WebGLProgram"), 
@@ -16,9 +15,34 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		"WebGLShader" : checkType("WebGLShader"), 
 		"WebGLTexture" : checkType("WebGLTexture"), 
 		"WebGLUniformLocation" : checkType("WebGLUniformLocation"), 
-		"FloatArray" : isFloatArray, 
-		"Int32Array" : isInt32Array, 
-		"DOMString" : isString, 
+		"FloatArray" : checkType("Float32Array"), 
+		"Int32Array" : checkType("Int32Array"), 
+		"DOMString" : checkType("string"), 
+	    "GLbitfield" : checkType("number"), 
+		"GLboolean" : checkType("boolean"),  
+		"GLclampf" : checkType("number"), 
+		"GLenum" :  checkType("number"), 
+		"GLfloat" : checkType("number"), 
+		"GLint" : checkType("number"), 
+		"GLintptr" : checkType("number"), 
+		"GLsizei" : checkType("number"), 
+		"GLsizeiptr" : checkType("number"), 
+		"GLuint" : checkType("number") 
+	};
+
+	var checkValue = {
+		"ArrayBufferView" : ok,
+		"ArrayBuffer" : ok,
+		"WebGLBuffer" : ok, 
+		"WebGLFrameBuffer" : ok, 
+		"WebGLProgram" : ok, 
+		"WebGLRenderbuffer" : ok, 
+		"WebGLShader" : ok, 
+		"WebGLTexture" : ok, 
+		"WebGLUniformLocation" : ok, 
+		"FloatArray" : ok, 
+		"Int32Array" : ok, 
+		"DOMString" : ok, 
 	    "GLbitfield" : isInt, 
 		"GLboolean" : isBool, 
 		"GLclampf" : isClampf, 
@@ -27,7 +51,7 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		"GLint" : isInt, 
 		"GLintptr" : isInt, 
 		"GLsizei" : isInt, 
-		"GLsizeiptr" : isSizeiptr, 
+		"GLsizeiptr" : isInt, 
 		"GLuint" : isInt
 	};
 
@@ -50,15 +74,10 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			val = gl[k]; 
 			type = typeof val; 
 
-			//HACK: texImage2D overloads are much diverse. 
-			if(type === "function" && k !== "texImage2D") {
+			if(type === "function") {
 				return [k, createSaveCaller(gl, val, k)]; 
 			}
-
-			if(k === "texImage2D") {
-				return [k, function() { val.apply(gl, arguments); }]; 
-			}
-			
+		
 			return [k]; 
 		});
 
@@ -99,48 +118,91 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		}
 
 		return function() {
-			var i, arg, argTypes, ret, type, name, funcDef; 
+			var i, argTypes, ret, funcDef; 
 
-			argTypes = []; 
-			//get Correct reference function
-			
-			for( i = 0; i != arguments.length; i++ ) {
-				argTypes[i] = toType( arguments[i] ); 
-			}
-
-			for( i = 0; i != glMethods.length; i++ ) {
-				if(glMethods[i].argsStructure.toString() === argTypes.toString()) {
-					funcDef = glMethods[i]; 
-				}
-			}
+			funcDef = getFunctionDef(arguments, glMethods); 
 
 			if(!funcDef) {
-				throw new Error("couldn't apply arguments (" + argTypes.toString() + ") to any of the possible schemas."); 
+				throw new Error("couldn't apply arguments (" + argumentsToString(arguments) + ") to any of the possible schemas." + glMethods.map(function(m) { return "(" + m.argsStructure.toString() + ")" })); 
 			}
 
-			//check Arguments 
-			//check if type is correct
-			for( i=0; i != arguments.length; i++) {
-				arg = arguments[i]; 
-				type = funcDef.args[i].type; 
-				name = funcDef.args[i].name; 
-
-				if(!typeChecker[type](arg)) {
-					throw new Error("Argument '" + name + "' in function " + funcname + " was expected to be '" + type + "' but instead was called with value " + arg  + "."); 
-				}
-			}
-
+			testArgumentValues(arguments, funcDef, funcname);
+			
 			//call original function 
 			return func.apply(gl, arguments); 
 		};
 	}
 
-	// ~~~ Type checking methods ~~~  
-	function checkType(type) {
-		var lowerType = type.toLowerCase(); 
-		return function(v) {
-			return v === null || toType(v) === lowerType; 
+	function argumentsToString(args) {
+		var l = []; 
+		for(var i = 0; i != args.length; i++ ) {
+			l.push(args[i]); 
 		}
+		return l; 
+	}
+
+	function testArgumentValues(args, funcDef, funcname) {
+		var arg, type, name, i; 
+		//check Arguments 
+		//check if type is correct
+		for( i=0; i != args.length; i++) {
+			arg = args[i]; 
+			type = funcDef.args[i].type; 
+			name = funcDef.args[i].name; 
+
+			if(!checkValue[type](arg)) {
+				throw new Error("Argument '" + name + "' in function " + funcname + " was expected to be '" + type + "' but instead was called with value " + arg  + "."); 
+			}
+		}
+	}
+
+	function getFunctionDef(args, glMethods) {
+			var argTypes, glMethod, glType, i, j; 
+			//get Correct reference function
+			argTypes = []; 
+
+			for( i = 0; i != args.length; i++ ) {
+				argTypes[i] = toType( args[i] ); 
+			}
+
+			checkMethodsLoop: 
+			for( i = 0; i != glMethods.length; i++ ) {
+				glMethod = glMethods[i]; 
+
+				if(glMethod.args.length !== args.length) {
+					continue; 
+				}
+			
+				for( j = 0; j != args.length; j++ ) {
+					glType = glMethod.args[j].type; 
+
+					if(!checkType[glType](args[j])) {
+						continue checkMethodsLoop; 
+					}
+				}
+
+				return glMethod; 
+			}
+
+			return null; 
+	}
+
+	// ~~~ Type checking methods ~~~  
+	function checkType() {	
+		var types = arguments; 	
+		return function(v) {
+			for(var i = 0; i != types.length; i++) {
+				if(v === null || toType(v) === types[i].toLowerCase()) {
+					return true; 
+				} 
+			}
+			return false; 
+		}
+	}
+
+	function ok() {
+		//Value allready passed the typecheck and so the value is also correct. 
+		return true; 
 	}
 
 	function isArrayBuffer(v) {
@@ -191,10 +253,6 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 
 	function isInt(v) {
 		return typeof v === "number" && v === (~~v); 
-	}
-
-	function isSizeiptr(v) {
-		return isInt(v) || isArrayBuffer(v); 
 	}
 
 	function isBool(v) {

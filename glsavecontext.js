@@ -8,10 +8,9 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	var METHODS = {"getContextAttributes":[{"returnType":"WebGLContextAttributes","args":[],"argsStructure":[]}],"isContextLost":[{"returnType":"boolean","args":[],"argsStructure":[]}],"getSupportedExtensions":[{"returnType":"DOMString","args":[],"argsStructure":[]}],"getExtension":[{"returnType":"object","args":[{"name":"name","type":"DOMString"}],"argsStructure":["string"]}],"activeTexture":[{"returnType":"void","args":[{"name":"texture","type":"GLenum"}],"argsStructure":["number"]}],"attachShader":[{"returnType":"void","args":[{"name":"program","type":"WebGLProgram"},{"name":"shader","type":"WebGLShader"}],"argsStructure":["webglprogram","webglshader"]}],"bindAttribLocation":[{"returnType":"void","args":[{"name":"program","type":"WebGLProgram"},{"name":"index","type":"GLuint"},{"name":"name","type":"DOMString"}],"argsStructure":["webglprogram","number","string"]}],"bindBuffer":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"buffer","type":"WebGLBuffer"}],"argsStructure":["number","webglbuffer"]}],"bindFramebuffer":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"framebuffer","type":"WebGLFramebuffer"}],"argsStructure":["number","webglframebuffer"]}],"bindRenderbuffer":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"renderbuffer","type":"WebGLRenderbuffer"}],"argsStructure":["number","webglrenderbuffer"]}],"bindTexture":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"texture","type":"WebGLTexture"}],"argsStructure":["number","webgltexture"]}],"blendColor":[{"returnType":"void","args":[{"name":"red","type":"GLclampf"},{"name":"green","type":"GLclampf"},{"name":"blue","type":"GLclampf"},{"name":"alpha","type":"GLclampf"}],"argsStructure":["number","number","number","number"]}],"blendEquation":[{"returnType":"void","args":[{"name":"mode","type":"GLenum"}],"argsStructure":["number"]}],"blendEquationSeparate":[{"returnType":"void","args":[{"name":"modeRGB","type":"GLenum"},{"name":"modeAlpha","type":"GLenum"}],"argsStructure":["number","number"]}],"blendFunc":[{"returnType":"void","args":[{"name":"sfactor","type":"GLenum"},{"name":"dfactor","type":"GLenum"}],"argsStructure":["number","number"]}],"blendFuncSeparate":[{"returnType":"void","args":[{"name":"srcRGB","type":"GLenum"},{"name":"dstRGB","type":"GLenum"},{"name":"srcAlpha","type":"GLenum"},{"name":"dstAlpha","type":"GLenum"}],"argsStructure":["number","number","number","number"]}],"bufferData":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"size","type":"GLsizeiptr"},{"name":"usage","type":"GLenum"}],"argsStructure":["number","number","number"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"data","type":"ArrayBufferView"},{"name":"usage","type":"GLenum"}],"argsStructure":["number","arraybufferview","number"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"data","type":"ArrayBuffer"},{"name":"usage","type":"GLenum"}],"argsStructure":["number","arraybuffer","number"]}],"bufferSubData":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"offset","type":"GLintptr"},{"name":"data","type":"ArrayBufferView"}],"argsStructure":["number","number","arraybufferview"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"offset","type":"GLintptr"},{"name":"data","type":"ArrayBuffer"}],"argsStructure":["number","number","arraybuffer"]}],"checkFramebufferStatus":[{"returnType":"GLenum","args":[{"name":"target","type":"GLenum"}],"argsStructure":["number"]}],"clear":[{"returnType":"void","args":[{"name":"mask","type":"GLbitfield"}],"argsStructure":["number"]}],"clearColor":[{"returnType":"void","args":[{"name":"red","type":"GLclampf"},{"name":"green","type":"GLclampf"},{"name":"blue","type":"GLclampf"},{"name":"alpha","type":"GLclampf"}],"argsStructure":["number","number","number","number"]}],"clearDepth":[{"returnType":"void","args":[{"name":"depth","type":"GLclampf"}],"argsStructure":["number"]}],"clearStencil":[{"returnType":"void","args":[{"name":"s","type":"GLint"}],"argsStructure":["number"]}],"colorMask":[{"returnType":"void","args":[{"name":"red","type":"GLboolean"},{"name":"green","type":"GLboolean"},{"name":"blue","type":"GLboolean"},{"name":"alpha","type":"GLboolean"}],"argsStructure":["boolean","boolean","boolean","boolean"]}],"compileShader":[{"returnType":"void","args":[{"name":"shader","type":"WebGLShader"}],"argsStructure":["webglshader"]}],"copyTexImage2D":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"internalformat","type":"GLenum"},{"name":"x","type":"GLint"},{"name":"y","type":"GLint"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"},{"name":"border","type":"GLint"}],"argsStructure":["number","number","number","number","number","number","number","number"]}],"copyTexSubImage2D":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"xoffset","type":"GLint"},{"name":"yoffset","type":"GLint"},{"name":"x","type":"GLint"},{"name":"y","type":"GLint"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"}],"argsStructure":["number","number","number","number","number","number","number","number"]}],"createBuffer":[{"returnType":"WebGLBuffer","args":[],"argsStructure":[]}],"createFramebuffer":[{"returnType":"WebGLFramebuffer","args":[],"argsStructure":[]}],"createProgram":[{"returnType":"WebGLProgram","args":[],"argsStructure":[]}],"createRenderbuffer":[{"returnType":"WebGLRenderbuffer","args":[],"argsStructure":[]}],"createShader":[{"returnType":"WebGLShader","args":[{"name":"type","type":"GLenum"}],"argsStructure":["number"]}],"createTexture":[{"returnType":"WebGLTexture","args":[],"argsStructure":[]}],"cullFace":[{"returnType":"void","args":[{"name":"mode","type":"GLenum"}],"argsStructure":["number"]}],"deleteBuffer":[{"returnType":"void","args":[{"name":"buffer","type":"WebGLBuffer"}],"argsStructure":["webglbuffer"]}],"deleteFramebuffer":[{"returnType":"void","args":[{"name":"framebuffer","type":"WebGLFramebuffer"}],"argsStructure":["webglframebuffer"]}],"deleteProgram":[{"returnType":"void","args":[{"name":"program","type":"WebGLProgram"}],"argsStructure":["webglprogram"]}],"deleteRenderbuffer":[{"returnType":"void","args":[{"name":"renderbuffer","type":"WebGLRenderbuffer"}],"argsStructure":["webglrenderbuffer"]}],"deleteShader":[{"returnType":"void","args":[{"name":"shader","type":"WebGLShader"}],"argsStructure":["webglshader"]}],"deleteTexture":[{"returnType":"void","args":[{"name":"texture","type":"WebGLTexture"}],"argsStructure":["webgltexture"]}],"depthFunc":[{"returnType":"void","args":[{"name":"func","type":"GLenum"}],"argsStructure":["number"]}],"depthMask":[{"returnType":"void","args":[{"name":"flag","type":"GLboolean"}],"argsStructure":["boolean"]}],"depthRange":[{"returnType":"void","args":[{"name":"zNear","type":"GLclampf"},{"name":"zFar","type":"GLclampf"}],"argsStructure":["number","number"]}],"detachShader":[{"returnType":"void","args":[{"name":"program","type":"WebGLProgram"},{"name":"shader","type":"WebGLShader"}],"argsStructure":["webglprogram","webglshader"]}],"disable":[{"returnType":"void","args":[{"name":"cap","type":"GLenum"}],"argsStructure":["number"]}],"disableVertexAttribArray":[{"returnType":"void","args":[{"name":"index","type":"GLuint"}],"argsStructure":["number"]}],"drawArrays":[{"returnType":"void","args":[{"name":"mode","type":"GLenum"},{"name":"first","type":"GLint"},{"name":"count","type":"GLsizei"}],"argsStructure":["number","number","number"]}],"drawElements":[{"returnType":"void","args":[{"name":"mode","type":"GLenum"},{"name":"count","type":"GLsizei"},{"name":"type","type":"GLenum"},{"name":"offset","type":"GLintptr"}],"argsStructure":["number","number","number","number"]}],"enable":[{"returnType":"void","args":[{"name":"cap","type":"GLenum"}],"argsStructure":["number"]}],"enableVertexAttribArray":[{"returnType":"void","args":[{"name":"index","type":"GLuint"}],"argsStructure":["number"]}],"finish":[{"returnType":"void","args":[],"argsStructure":[]}],"flush":[{"returnType":"void","args":[],"argsStructure":[]}],"framebufferRenderbuffer":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"attachment","type":"GLenum"},{"name":"renderbuffertarget","type":"GLenum"},{"name":"renderbuffer","type":"WebGLRenderbuffer"}],"argsStructure":["number","number","number","webglrenderbuffer"]}],"framebufferTexture2D":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"attachment","type":"GLenum"},{"name":"textarget","type":"GLenum"},{"name":"texture","type":"WebGLTexture"},{"name":"level","type":"GLint"}],"argsStructure":["number","number","number","webgltexture","number"]}],"frontFace":[{"returnType":"void","args":[{"name":"mode","type":"GLenum"}],"argsStructure":["number"]}],"generateMipmap":[{"returnType":"void","args":[{"name":"target","type":"GLenum"}],"argsStructure":["number"]}],"getActiveAttrib":[{"returnType":"WebGLActiveInfo","args":[{"name":"program","type":"WebGLProgram"},{"name":"index","type":"GLuint"}],"argsStructure":["webglprogram","number"]}],"getActiveUniform":[{"returnType":"WebGLActiveInfo","args":[{"name":"program","type":"WebGLProgram"},{"name":"index","type":"GLuint"}],"argsStructure":["webglprogram","number"]}],"getAttachedShaders":[{"returnType":"WebGLShader","args":[{"name":"program","type":"WebGLProgram"}],"argsStructure":["webglprogram"]}],"getAttribLocation":[{"returnType":"GLint","args":[{"name":"program","type":"WebGLProgram"},{"name":"name","type":"DOMString"}],"argsStructure":["webglprogram","string"]}],"getParameter":[{"returnType":"any","args":[{"name":"pname","type":"GLenum"}],"argsStructure":["number"]}],"getBufferParameter":[{"returnType":"any","args":[{"name":"target","type":"GLenum"},{"name":"pname","type":"GLenum"}],"argsStructure":["number","number"]}],"getError":[{"returnType":"GLenum","args":[],"argsStructure":[]}],"getFramebufferAttachmentParameter":[{"returnType":"any","args":[{"name":"target","type":"GLenum"},{"name":"attachment","type":"GLenum"},{"name":"pname","type":"GLenum"}],"argsStructure":["number","number","number"]}],"getProgramParameter":[{"returnType":"any","args":[{"name":"program","type":"WebGLProgram"},{"name":"pname","type":"GLenum"}],"argsStructure":["webglprogram","number"]}],"getProgramInfoLog":[{"returnType":"DOMString","args":[{"name":"program","type":"WebGLProgram"}],"argsStructure":["webglprogram"]}],"getRenderbufferParameter":[{"returnType":"any","args":[{"name":"target","type":"GLenum"},{"name":"pname","type":"GLenum"}],"argsStructure":["number","number"]}],"getShaderParameter":[{"returnType":"any","args":[{"name":"shader","type":"WebGLShader"},{"name":"pname","type":"GLenum"}],"argsStructure":["webglshader","number"]}],"getShaderInfoLog":[{"returnType":"DOMString","args":[{"name":"shader","type":"WebGLShader"}],"argsStructure":["webglshader"]}],"getShaderSource":[{"returnType":"DOMString","args":[{"name":"shader","type":"WebGLShader"}],"argsStructure":["webglshader"]}],"getTexParameter":[{"returnType":"any","args":[{"name":"target","type":"GLenum"},{"name":"pname","type":"GLenum"}],"argsStructure":["number","number"]}],"getUniform":[{"returnType":"any","args":[{"name":"program","type":"WebGLProgram"},{"name":"location","type":"WebGLUniformLocation"}],"argsStructure":["webglprogram","webgluniformlocation"]}],"getUniformLocation":[{"returnType":"WebGLUniformLocation","args":[{"name":"program","type":"WebGLProgram"},{"name":"name","type":"DOMString"}],"argsStructure":["webglprogram","string"]}],"getVertexAttrib":[{"returnType":"any","args":[{"name":"index","type":"GLuint"},{"name":"pname","type":"GLenum"}],"argsStructure":["number","number"]}],"getVertexAttribOffset":[{"returnType":"GLsizeiptr","args":[{"name":"index","type":"GLuint"},{"name":"pname","type":"GLenum"}],"argsStructure":["number","number"]}],"hint":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"mode","type":"GLenum"}],"argsStructure":["number","number"]}],"isBuffer":[{"returnType":"GLboolean","args":[{"name":"buffer","type":"WebGLBuffer"}],"argsStructure":["webglbuffer"]}],"isEnabled":[{"returnType":"GLboolean","args":[{"name":"cap","type":"GLenum"}],"argsStructure":["number"]}],"isFramebuffer":[{"returnType":"GLboolean","args":[{"name":"framebuffer","type":"WebGLFramebuffer"}],"argsStructure":["webglframebuffer"]}],"isProgram":[{"returnType":"GLboolean","args":[{"name":"program","type":"WebGLProgram"}],"argsStructure":["webglprogram"]}],"isRenderbuffer":[{"returnType":"GLboolean","args":[{"name":"renderbuffer","type":"WebGLRenderbuffer"}],"argsStructure":["webglrenderbuffer"]}],"isShader":[{"returnType":"GLboolean","args":[{"name":"shader","type":"WebGLShader"}],"argsStructure":["webglshader"]}],"isTexture":[{"returnType":"GLboolean","args":[{"name":"texture","type":"WebGLTexture"}],"argsStructure":["webgltexture"]}],"lineWidth":[{"returnType":"void","args":[{"name":"width","type":"GLfloat"}],"argsStructure":["number"]}],"linkProgram":[{"returnType":"void","args":[{"name":"program","type":"WebGLProgram"}],"argsStructure":["webglprogram"]}],"pixelStorei":[{"returnType":"void","args":[{"name":"pname","type":"GLenum"},{"name":"param","type":"GLint"}],"argsStructure":["number","number"]}],"polygonOffset":[{"returnType":"void","args":[{"name":"factor","type":"GLfloat"},{"name":"units","type":"GLfloat"}],"argsStructure":["number","number"]}],"readPixels":[{"returnType":"void","args":[{"name":"x","type":"GLint"},{"name":"y","type":"GLint"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"pixels","type":"ArrayBufferView"}],"argsStructure":["number","number","number","number","number","number","arraybufferview"]}],"renderbufferStorage":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"internalformat","type":"GLenum"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"}],"argsStructure":["number","number","number","number"]}],"sampleCoverage":[{"returnType":"void","args":[{"name":"value","type":"GLclampf"},{"name":"invert","type":"GLboolean"}],"argsStructure":["number","boolean"]}],"scissor":[{"returnType":"void","args":[{"name":"x","type":"GLint"},{"name":"y","type":"GLint"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"}],"argsStructure":["number","number","number","number"]}],"shaderSource":[{"returnType":"void","args":[{"name":"shader","type":"WebGLShader"},{"name":"source","type":"DOMString"}],"argsStructure":["webglshader","string"]}],"stencilFunc":[{"returnType":"void","args":[{"name":"func","type":"GLenum"},{"name":"ref","type":"GLint"},{"name":"mask","type":"GLuint"}],"argsStructure":["number","number","number"]}],"stencilFuncSeparate":[{"returnType":"void","args":[{"name":"face","type":"GLenum"},{"name":"func","type":"GLenum"},{"name":"ref","type":"GLint"},{"name":"mask","type":"GLuint"}],"argsStructure":["number","number","number","number"]}],"stencilMask":[{"returnType":"void","args":[{"name":"mask","type":"GLuint"}],"argsStructure":["number"]}],"stencilMaskSeparate":[{"returnType":"void","args":[{"name":"face","type":"GLenum"},{"name":"mask","type":"GLuint"}],"argsStructure":["number","number"]}],"stencilOp":[{"returnType":"void","args":[{"name":"fail","type":"GLenum"},{"name":"zfail","type":"GLenum"},{"name":"zpass","type":"GLenum"}],"argsStructure":["number","number","number"]}],"stencilOpSeparate":[{"returnType":"void","args":[{"name":"face","type":"GLenum"},{"name":"fail","type":"GLenum"},{"name":"zfail","type":"GLenum"},{"name":"zpass","type":"GLenum"}],"argsStructure":["number","number","number","number"]}],"texImage2D":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"internalformat","type":"GLenum"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"},{"name":"border","type":"GLint"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"pixels","type":"ArrayBufferView"}],"argsStructure":["number","number","number","number","number","number","number","number","arraybufferview"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"internalformat","type":"GLenum"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"pixels","type":"ImageData"}],"argsStructure":["number","number","number","number","number","imagedata"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"internalformat","type":"GLenum"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"image","type":"HTMLImageElement"}],"argsStructure":["number","number","number","number","number","htmlimageelement"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"internalformat","type":"GLenum"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"canvas","type":"HTMLCanvasElement"}],"argsStructure":["number","number","number","number","number","htmlcanvaselement"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"internalformat","type":"GLenum"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"video","type":"HTMLVideoElement"}],"argsStructure":["number","number","number","number","number","htmlvideoelement"]}],"texParameterf":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"pname","type":"GLenum"},{"name":"param","type":"GLfloat"}],"argsStructure":["number","number","number"]}],"texParameteri":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"pname","type":"GLenum"},{"name":"param","type":"GLint"}],"argsStructure":["number","number","number"]}],"texSubImage2D":[{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"xoffset","type":"GLint"},{"name":"yoffset","type":"GLint"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"pixels","type":"ArrayBufferView"}],"argsStructure":["number","number","number","number","number","number","number","number","arraybufferview"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"xoffset","type":"GLint"},{"name":"yoffset","type":"GLint"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"pixels","type":"ImageData"}],"argsStructure":["number","number","number","number","number","number","imagedata"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"xoffset","type":"GLint"},{"name":"yoffset","type":"GLint"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"image","type":"HTMLImageElement"}],"argsStructure":["number","number","number","number","number","number","htmlimageelement"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"xoffset","type":"GLint"},{"name":"yoffset","type":"GLint"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"canvas","type":"HTMLCanvasElement"}],"argsStructure":["number","number","number","number","number","number","htmlcanvaselement"]},{"returnType":"void","args":[{"name":"target","type":"GLenum"},{"name":"level","type":"GLint"},{"name":"xoffset","type":"GLint"},{"name":"yoffset","type":"GLint"},{"name":"format","type":"GLenum"},{"name":"type","type":"GLenum"},{"name":"video","type":"HTMLVideoElement"}],"argsStructure":["number","number","number","number","number","number","htmlvideoelement"]}],"uniform1f":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLfloat"}],"argsStructure":["webgluniformlocation","number"]}],"uniform1fv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"FloatArray"}],"argsStructure":["webgluniformlocation","float32array"]}],"uniform1i":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLint"}],"argsStructure":["webgluniformlocation","number"]}],"uniform1iv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"Int32Array"}],"argsStructure":["webgluniformlocation","int32array"]}],"uniform2f":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLfloat"},{"name":"y","type":"GLfloat"}],"argsStructure":["webgluniformlocation","number","number"]}],"uniform2fv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"FloatArray"}],"argsStructure":["webgluniformlocation","float32array"]}],"uniform2i":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLint"},{"name":"y","type":"GLint"}],"argsStructure":["webgluniformlocation","number","number"]}],"uniform2iv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"Int32Array"}],"argsStructure":["webgluniformlocation","int32array"]}],"uniform3f":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLfloat"},{"name":"y","type":"GLfloat"},{"name":"z","type":"GLfloat"}],"argsStructure":["webgluniformlocation","number","number","number"]}],"uniform3fv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"FloatArray"}],"argsStructure":["webgluniformlocation","float32array"]}],"uniform3i":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLint"},{"name":"y","type":"GLint"},{"name":"z","type":"GLint"}],"argsStructure":["webgluniformlocation","number","number","number"]}],"uniform3iv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"Int32Array"}],"argsStructure":["webgluniformlocation","int32array"]}],"uniform4f":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLfloat"},{"name":"y","type":"GLfloat"},{"name":"z","type":"GLfloat"},{"name":"w","type":"GLfloat"}],"argsStructure":["webgluniformlocation","number","number","number","number"]}],"uniform4fv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"FloatArray"}],"argsStructure":["webgluniformlocation","float32array"]}],"uniform4i":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"x","type":"GLint"},{"name":"y","type":"GLint"},{"name":"z","type":"GLint"},{"name":"w","type":"GLint"}],"argsStructure":["webgluniformlocation","number","number","number","number"]}],"uniform4iv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"v","type":"Int32Array"}],"argsStructure":["webgluniformlocation","int32array"]}],"uniformMatrix2fv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"transpose","type":"GLboolean"},{"name":"value","type":"FloatArray"}],"argsStructure":["webgluniformlocation","boolean","float32array"]}],"uniformMatrix3fv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"transpose","type":"GLboolean"},{"name":"value","type":"FloatArray"}],"argsStructure":["webgluniformlocation","boolean","float32array"]}],"uniformMatrix4fv":[{"returnType":"void","args":[{"name":"location","type":"WebGLUniformLocation"},{"name":"transpose","type":"GLboolean"},{"name":"value","type":"FloatArray"}],"argsStructure":["webgluniformlocation","boolean","float32array"]}],"useProgram":[{"returnType":"void","args":[{"name":"program","type":"WebGLProgram"}],"argsStructure":["webglprogram"]}],"validateProgram":[{"returnType":"void","args":[{"name":"program","type":"WebGLProgram"}],"argsStructure":["webglprogram"]}],"vertexAttrib1f":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"x","type":"GLfloat"}],"argsStructure":["number","number"]}],"vertexAttrib1fv":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"values","type":"FloatArray"}],"argsStructure":["number","float32array"]}],"vertexAttrib2f":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"x","type":"GLfloat"},{"name":"y","type":"GLfloat"}],"argsStructure":["number","number","number"]}],"vertexAttrib2fv":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"values","type":"FloatArray"}],"argsStructure":["number","float32array"]}],"vertexAttrib3f":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"x","type":"GLfloat"},{"name":"y","type":"GLfloat"},{"name":"z","type":"GLfloat"}],"argsStructure":["number","number","number","number"]}],"vertexAttrib3fv":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"values","type":"FloatArray"}],"argsStructure":["number","float32array"]}],"vertexAttrib4f":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"x","type":"GLfloat"},{"name":"y","type":"GLfloat"},{"name":"z","type":"GLfloat"},{"name":"w","type":"GLfloat"}],"argsStructure":["number","number","number","number","number"]}],"vertexAttrib4fv":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"values","type":"FloatArray"}],"argsStructure":["number","float32array"]}],"vertexAttribPointer":[{"returnType":"void","args":[{"name":"indx","type":"GLuint"},{"name":"size","type":"GLint"},{"name":"type","type":"GLenum"},{"name":"normalized","type":"GLboolean"},{"name":"stride","type":"GLsizei"},{"name":"offset","type":"GLintptr"}],"argsStructure":["number","number","number","boolean","number","number"]}],"viewport":[{"returnType":"void","args":[{"name":"x","type":"GLint"},{"name":"y","type":"GLint"},{"name":"width","type":"GLsizei"},{"name":"height","type":"GLsizei"}],"argsStructure":["number","number","number","number"]}]}; 
 	
 
-
-	var typeChecker = {
-		"ArrayBufferView" : isArrayBuffer,
-		"ArrayBuffer" : isArrayBuffer,
+	var checkType = {
+		"ArrayBufferView" : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
+		"ArrayBuffer" : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
 		"WebGLBuffer" : checkType("WebGLBuffer"), 
 		"WebGLFrameBuffer" : checkType("WebGLFrameBuffer"), 
 		"WebGLProgram" : checkType("WebGLProgram"), 
@@ -19,9 +18,34 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		"WebGLShader" : checkType("WebGLShader"), 
 		"WebGLTexture" : checkType("WebGLTexture"), 
 		"WebGLUniformLocation" : checkType("WebGLUniformLocation"), 
-		"FloatArray" : isFloatArray, 
-		"Int32Array" : isInt32Array, 
-		"DOMString" : isString, 
+		"FloatArray" : checkType("Float32Array"), 
+		"Int32Array" : checkType("Int32Array"), 
+		"DOMString" : checkType("string"), 
+	    "GLbitfield" : checkType("number"), 
+		"GLboolean" : checkType("boolean"),  
+		"GLclampf" : checkType("number"), 
+		"GLenum" :  checkType("number"), 
+		"GLfloat" : checkType("number"), 
+		"GLint" : checkType("number"), 
+		"GLintptr" : checkType("number"), 
+		"GLsizei" : checkType("number"), 
+		"GLsizeiptr" : checkType("number"), 
+		"GLuint" : checkType("number") 
+	};
+
+	var checkValue = {
+		"ArrayBufferView" : ok,
+		"ArrayBuffer" : ok,
+		"WebGLBuffer" : ok, 
+		"WebGLFrameBuffer" : ok, 
+		"WebGLProgram" : ok, 
+		"WebGLRenderbuffer" : ok, 
+		"WebGLShader" : ok, 
+		"WebGLTexture" : ok, 
+		"WebGLUniformLocation" : ok, 
+		"FloatArray" : ok, 
+		"Int32Array" : ok, 
+		"DOMString" : ok, 
 	    "GLbitfield" : isInt, 
 		"GLboolean" : isBool, 
 		"GLclampf" : isClampf, 
@@ -30,7 +54,7 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		"GLint" : isInt, 
 		"GLintptr" : isInt, 
 		"GLsizei" : isInt, 
-		"GLsizeiptr" : isSizeiptr, 
+		"GLsizeiptr" : isInt, 
 		"GLuint" : isInt
 	};
 
@@ -53,15 +77,10 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			val = gl[k]; 
 			type = typeof val; 
 
-			//HACK: texImage2D overloads are much diverse. 
-			if(type === "function" && k !== "texImage2D") {
+			if(type === "function") {
 				return [k, createSaveCaller(gl, val, k)]; 
 			}
-
-			if(k === "texImage2D") {
-				return [k, function() { val.apply(gl, arguments); }]; 
-			}
-			
+		
 			return [k]; 
 		});
 
@@ -102,48 +121,91 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		}
 
 		return function() {
-			var i, arg, argTypes, ret, type, name, funcDef; 
+			var i, argTypes, ret, funcDef; 
 
-			argTypes = []; 
-			//get Correct reference function
-			
-			for( i = 0; i != arguments.length; i++ ) {
-				argTypes[i] = toType( arguments[i] ); 
-			}
-
-			for( i = 0; i != glMethods.length; i++ ) {
-				if(glMethods[i].argsStructure.toString() === argTypes.toString()) {
-					funcDef = glMethods[i]; 
-				}
-			}
+			funcDef = getFunctionDef(arguments, glMethods); 
 
 			if(!funcDef) {
-				throw new Error("couldn't apply arguments (" + argTypes.toString() + ") to any of the possible schemas."); 
+				throw new Error("couldn't apply arguments (" + argumentsToString(arguments) + ") to any of the possible schemas." + glMethods.map(function(m) { return "(" + m.argsStructure.toString() + ")" })); 
 			}
 
-			//check Arguments 
-			//check if type is correct
-			for( i=0; i != arguments.length; i++) {
-				arg = arguments[i]; 
-				type = funcDef.args[i].type; 
-				name = funcDef.args[i].name; 
-
-				if(!typeChecker[type](arg)) {
-					throw new Error("Argument '" + name + "' in function " + funcname + " was expected to be '" + type + "' but instead was called with value " + arg  + "."); 
-				}
-			}
-
+			testArgumentValues(arguments, funcDef, funcname);
+			
 			//call original function 
 			return func.apply(gl, arguments); 
 		};
 	}
 
-	// ~~~ Type checking methods ~~~  
-	function checkType(type) {
-		var lowerType = type.toLowerCase(); 
-		return function(v) {
-			return v === null || toType(v) === lowerType; 
+	function argumentsToString(args) {
+		var l = []; 
+		for(var i = 0; i != args.length; i++ ) {
+			l.push(args[i]); 
 		}
+		return l; 
+	}
+
+	function testArgumentValues(args, funcDef, funcname) {
+		var arg, type, name, i; 
+		//check Arguments 
+		//check if type is correct
+		for( i=0; i != args.length; i++) {
+			arg = args[i]; 
+			type = funcDef.args[i].type; 
+			name = funcDef.args[i].name; 
+
+			if(!checkValue[type](arg)) {
+				throw new Error("Argument '" + name + "' in function " + funcname + " was expected to be '" + type + "' but instead was called with value " + arg  + "."); 
+			}
+		}
+	}
+
+	function getFunctionDef(args, glMethods) {
+			var argTypes, glMethod, glType, i, j; 
+			//get Correct reference function
+			argTypes = []; 
+
+			for( i = 0; i != args.length; i++ ) {
+				argTypes[i] = toType( args[i] ); 
+			}
+
+			checkMethodsLoop: 
+			for( i = 0; i != glMethods.length; i++ ) {
+				glMethod = glMethods[i]; 
+
+				if(glMethod.args.length !== args.length) {
+					continue; 
+				}
+			
+				for( j = 0; j != args.length; j++ ) {
+					glType = glMethod.args[j].type; 
+
+					if(!checkType[glType](args[j])) {
+						continue checkMethodsLoop; 
+					}
+				}
+
+				return glMethod; 
+			}
+
+			return null; 
+	}
+
+	// ~~~ Type checking methods ~~~  
+	function checkType() {	
+		var types = arguments; 	
+		return function(v) {
+			for(var i = 0; i != types.length; i++) {
+				if(v === null || toType(v) === types[i].toLowerCase()) {
+					return true; 
+				} 
+			}
+			return false; 
+		}
+	}
+
+	function ok() {
+		//Value allready passed the typecheck and so the value is also correct. 
+		return true; 
 	}
 
 	function isArrayBuffer(v) {
@@ -194,10 +256,6 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 
 	function isInt(v) {
 		return typeof v === "number" && v === (~~v); 
-	}
-
-	function isSizeiptr(v) {
-		return isInt(v) || isArrayBuffer(v); 
 	}
 
 	function isBool(v) {
