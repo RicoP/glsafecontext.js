@@ -2,36 +2,7 @@
 <script type="text/javascript" src="../lib/WebIDLParser.js"> </script> 
 <script type="text/javascript">
 "use strict"; 
-var idl, out, module, webGlContext, methods, finalObject, i, json, m, returnType, args, obj, isSequence, typeMap;
-
-typeMap = {
-	"ArrayBuffer" : "arraybuffer", 
-	"ArrayBufferView" : "arraybufferview", 
-	"DOMString" : "string", 
-	"FloatArray" : "float32array", 
-	"GLbitfield" : "number", 
-	"GLboolean" : "boolean", 
-	"GLclampf" : "number", 
-	"GLenum" : "number", 
-	"GLfloat" : "number", 
-	"GLint" : "number", 
-	"GLintptr" : "number", 
-	"GLsizei" : "number", 
-	"GLsizeiptr" : "number", 
-	"GLuint" : "number", 
-	"HTMLCanvasElement" : "htmlcanvaselement", 
-	"HTMLImageElement" : "htmlimageelement", 
-	"HTMLVideoElement" : "htmlvideoelement", 
-	"ImageData" : "imagedata", 
-	"Int32Array" : "int32array", 
-	"WebGLBuffer" : "webglbuffer", 
-	"WebGLFramebuffer" : "webglframebuffer", 
-	"WebGLProgram" : "webglprogram", 
-	"WebGLRenderbuffer" : "webglrenderbuffer", 
-	"WebGLShader" : "webglshader", 
-	"WebGLTexture" : "webgltexture", 
-	"WebGLUniformLocation" : "webgluniformlocation"
-};
+var idl, out, module, webGlContext, methods, finalObject, i, json, m, args, obj, isSequence;
 
 window.onload = function() { 
 ///////////////////////////////////////
@@ -53,8 +24,6 @@ for(i = 0; i != methods.length; i++) {
 	isSequence = false; 
 	m = methods[i]; 
 
-	returnType = getIdlType(m.idlType); 
-	
 	args = m.arguments.map(function(arg) {
 		isSequence = isSequence || arg.type && arg.type.sequence; //Nasty: Have sideeffects in this loop to check if any of the argument parameters is a sequence so we don't need nested filter methods to check this. 
 		return { 
@@ -68,9 +37,7 @@ for(i = 0; i != methods.length; i++) {
 	}
 	
 	obj = {
-		returnType : returnType, 
-		args : args,
-		argsStructure : toTypeStructure( args ) 
+		args : args
 	}
 
 	if(! finalObject[m.name] ) {
@@ -94,10 +61,6 @@ function getIdlType(o) {
 	} else {
 		return m.idlType.idlType; 
 	}
-}
-
-function toTypeStructure( args ) {
-	return args.map(function(arg) { return typeMap[arg.type]; }); 
 }
 
 function toType(obj) {

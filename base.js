@@ -6,53 +6,65 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	// var METHODS ... 
 	//= utils/glmethods
 	var checkType = {
-		"ArrayBufferView" : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
-		"ArrayBuffer" : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
-		"WebGLBuffer" : checkType("WebGLBuffer"), 
-		"WebGLFrameBuffer" : checkType("WebGLFrameBuffer"), 
-		"WebGLProgram" : checkType("WebGLProgram"), 
-		"WebGLRenderbuffer" : checkType("WebGLRenderbuffer"), 
-		"WebGLShader" : checkType("WebGLShader"), 
-		"WebGLTexture" : checkType("WebGLTexture"), 
+		"ArrayBuffer"          : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
+		"ArrayBufferView"      : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
+		"DOMString"            : checkType("string"), 
+		"FloatArray"           : checkType("Float32Array", "Array"), 
+		"GLbitfield"           : checkType("number"), 
+		"GLboolean"            : checkType("boolean"),  
+		"GLclampf"             : checkType("number"), 
+		"GLenum"               : checkType("number"), 
+		"GLfloat"              : checkType("number"), 
+		"GLint"                : checkType("number"), 
+		"GLintptr"             : checkType("number"), 
+		"GLsizei"              : checkType("number"), 
+		"GLsizeiptr"           : checkType("number"), 
+		"GLuint"               : checkType("number"),
+		"HTMLCanvasElement"    : checkType("HTMLCanvasElement"),
+		"HTMLImageElement"     : checkType("HTMLImageElement"), 
+		"HTMLVideoElement"     : checkType("HTMLVideoElement"), 
+		"ImageData"            : checkType("ImageData"), 
+		"Int32Array"           : checkType("Int32Array", "Array"), 
+		"WebGLBuffer"          : checkType("WebGLBuffer"), 
+		"WebGLFrameBuffer"     : checkType("WebGLFrameBuffer"), 
+		"WebGLProgram"         : checkType("WebGLProgram"), 
+		"WebGLRenderbuffer"    : checkType("WebGLRenderbuffer"), 
+		"WebGLShader"          : checkType("WebGLShader"), 
+		"WebGLTexture"         : checkType("WebGLTexture"), 
 		"WebGLUniformLocation" : checkType("WebGLUniformLocation"), 
-		"FloatArray" : checkType("Float32Array"), 
-		"Int32Array" : checkType("Int32Array"), 
-		"DOMString" : checkType("string"), 
-	    "GLbitfield" : checkType("number"), 
-		"GLboolean" : checkType("boolean"),  
-		"GLclampf" : checkType("number"), 
-		"GLenum" :  checkType("number"), 
-		"GLfloat" : checkType("number"), 
-		"GLint" : checkType("number"), 
-		"GLintptr" : checkType("number"), 
-		"GLsizei" : checkType("number"), 
-		"GLsizeiptr" : checkType("number"), 
-		"GLuint" : checkType("number") 
+		"float"                : checkType("number"), 
+		"long"                 : checkType("number") 
 	};
 
 	var checkValue = {
-		"ArrayBufferView" : ok,
-		"ArrayBuffer" : ok,
-		"WebGLBuffer" : ok, 
-		"WebGLFrameBuffer" : ok, 
-		"WebGLProgram" : ok, 
-		"WebGLRenderbuffer" : ok, 
-		"WebGLShader" : ok, 
-		"WebGLTexture" : ok, 
+		"ArrayBuffer"          : isArrayBuffer,  
+		"ArrayBufferView"      : isArrayBuffer, 
+		"DOMString"            : ok, 
+		"FloatArray"           : isFloatArray, 
+		"GLbitfield"           : isInt, 
+		"GLboolean"            : isBool, 
+		"GLclampf"             : isClampf, 
+		"GLenum"               : isInt, 
+		"GLfloat"              : isFloat, 
+		"GLint"                : isInt, 
+		"GLintptr"             : isInt, 
+		"GLsizei"              : isInt, 
+		"GLsizeiptr"           : isInt, 
+		"GLuint"               : isInt, 
+		"HTMLCanvasElement"    : ok, 
+		"HTMLImageElement"     : ok, 
+		"HTMLVideoElement"     : ok, 
+		"ImageData"            : ok, 
+		"Int32Array"           : isInt32Array, 
+		"WebGLBuffer"          : ok, 
+		"WebGLFrameBuffer"     : ok, 
+		"WebGLProgram"         : ok, 
+		"WebGLRenderbuffer"    : ok, 
+		"WebGLShader"          : ok, 
+		"WebGLTexture"         : ok, 
 		"WebGLUniformLocation" : ok, 
-		"FloatArray" : ok, 
-		"Int32Array" : ok, 
-		"DOMString" : ok, 
-	    "GLbitfield" : isInt, 
-		"GLboolean" : isBool, 
-		"GLclampf" : isClampf, 
-		"GLenum" : isInt, 
-		"GLfloat" : isFloat, 
-		"GLint" : isInt, 
-		"GLintptr" : isInt, 
-		"GLsizei" : isInt, 
-		"GLsizeiptr" : isInt, 
-		"GLuint" : isInt
+		"float"                : isFloat, 
+		"long"                 : isInt
 	};
 
 	return function() { return saveContext(this); };  
@@ -210,11 +222,12 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	}
 
 	function isFloatArray(v) {
-		if(toType(v) === "float32array" || toType(v) === "floatarray") {
+		var type = toType(v); 
+		if(type === "float32array" || type === "floatarray") {
 			return true;
 		}
 
-		if(toType(v) === "array") {
+		if(type === "array") {
 			for(var i = 0; i != v.length; i++) {
 				if(!isFloat(v[i])) {
 					return false; 
@@ -227,11 +240,12 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	}
 	
 	function isInt32Array(v) {
-		if(toType(v) === "int32array") {
+		var type = toType(v); 
+		if(type === "int32array") {
 			return true; 
 		}
 
-		if(toType(v) === "array") {
+		if(type === "array") {
 			for(var i = 0; i != v.length; i++) {
 				if(!isInt(v[i])) {
 					return false; 
