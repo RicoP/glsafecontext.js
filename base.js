@@ -5,11 +5,13 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 
 	// var METHODS ... 
 	//= utils/glmethods
+
 	var checkType = {
-		"ArrayBuffer"          : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
-		"ArrayBufferView"      : checkType("ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
-		"DOMString"            : checkType("string"), 
-		"FloatArray"           : checkType("Float32Array", "Array"), 
+		//OpenGL Type                      JS Types 
+		"ArrayBuffer"          : checkType("null", "ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
+		"ArrayBufferView"      : checkType("null", "ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
+		"DOMString"            : checkType("null", "string"), 
+		"FloatArray"           : checkType("null", "Float32Array", "Array"), 
 		"GLbitfield"           : checkType("number"), 
 		"GLboolean"            : checkType("boolean"),  
 		"GLclampf"             : checkType("number"), 
@@ -20,23 +22,24 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		"GLsizei"              : checkType("number"), 
 		"GLsizeiptr"           : checkType("number"), 
 		"GLuint"               : checkType("number"),
-		"HTMLCanvasElement"    : checkType("HTMLCanvasElement"),
-		"HTMLImageElement"     : checkType("HTMLImageElement"), 
-		"HTMLVideoElement"     : checkType("HTMLVideoElement"), 
-		"ImageData"            : checkType("ImageData"), 
-		"Int32Array"           : checkType("Int32Array", "Array"), 
-		"WebGLBuffer"          : checkType("WebGLBuffer"), 
-		"WebGLFrameBuffer"     : checkType("WebGLFrameBuffer"), 
-		"WebGLProgram"         : checkType("WebGLProgram"), 
-		"WebGLRenderbuffer"    : checkType("WebGLRenderbuffer"), 
-		"WebGLShader"          : checkType("WebGLShader"), 
-		"WebGLTexture"         : checkType("WebGLTexture"), 
-		"WebGLUniformLocation" : checkType("WebGLUniformLocation"), 
+		"HTMLCanvasElement"    : checkType("null", "HTMLCanvasElement"),
+		"HTMLImageElement"     : checkType("null", "HTMLImageElement"), 
+		"HTMLVideoElement"     : checkType("null", "HTMLVideoElement"), 
+		"ImageData"            : checkType("null", "ImageData"), 
+		"Int32Array"           : checkType("null", "Int32Array", "Array"), 
+		"WebGLBuffer"          : checkType("null", "WebGLBuffer"), 
+		"WebGLFrameBuffer"     : checkType("null", "WebGLFrameBuffer"), 
+		"WebGLProgram"         : checkType("null", "WebGLProgram"), 
+		"WebGLRenderbuffer"    : checkType("null", "WebGLRenderbuffer"), 
+		"WebGLShader"          : checkType("null", "WebGLShader"), 
+		"WebGLTexture"         : checkType("null", "WebGLTexture"), 
+		"WebGLUniformLocation" : checkType("null", "WebGLUniformLocation"), 
 		"float"                : checkType("number"), 
 		"long"                 : checkType("number") 
 	};
 
 	var checkValue = {
+		//OpenGL Type            Way to check the correct value 
 		"ArrayBuffer"          : isArrayBuffer,  
 		"ArrayBufferView"      : isArrayBuffer, 
 		"DOMString"            : ok, 
@@ -81,16 +84,16 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			keys.push(key); 
 		}
 
-		map = keys.map(function(k) {
+		map = keys.map(function(key) {
 			var val, type; 
-			val = gl[k]; 
+			val = gl[key]; 
 			type = typeof val; 
 
 			if(type === "function") {
-				return [k, createSaveCaller(gl, val, k)]; 
+				return [key, createSaveCaller(gl, val, key)]; 
 			}
 		
-			return [k]; 
+			return [key]; 
 		});
 
 		savegl = { "isSaveContext" : true }; 
@@ -101,7 +104,7 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			key = pair[0]; 
 			value = pair[1]; 
 		
-			if(typeof value === "function") {
+			if(value) {
 				//override behaviour with my own function 
 				savegl[key] = value; 
 			} else {
@@ -130,27 +133,27 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 		}
 
 		return function() {
-			var i, argTypes, ret, funcDef; 
-
-			funcDef = getFunctionDef(arguments, glMethods); 
+			var funcDef = getFunctionDef(argumentsToArray(arguments), glMethods); 
 
 			if(!funcDef) {
-				throw new Error("couldn't apply arguments (" + argumentsToString(arguments) + ") to any of the possible schemas." + glMethods.map(function(m) { return "(" + m.argsStructure.toString() + ")" })); 
+				throw new Error("couldn't apply arguments (" 
+					+ argumentsToArray(arguments).join(", ") 
+					+ ") to any of the possible schemas:\n" 
+					+ glMethods.map(function(m) { 
+						return "(" + m.args.map(function(arg) { return arg.type; }).join(", ") + ")" 
+					  }).join("\n,") 
+				); 
 			}
 
-			testArgumentValues(arguments, funcDef, funcname);
+			testArgumentValues(argumentsToArray(arguments), funcDef, funcname);
 			
 			//call original function 
 			return func.apply(gl, arguments); 
 		};
 	}
 
-	function argumentsToString(args) {
-		var l = []; 
-		for(var i = 0; i != args.length; i++ ) {
-			l.push(args[i]); 
-		}
-		return l; 
+	function argumentsToArray(args) {
+		return Array.prototype.slice.call(args); 
 	}
 
 	function testArgumentValues(args, funcDef, funcname) {
@@ -163,52 +166,35 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 			name = funcDef.args[i].name; 
 
 			if(!checkValue[type](arg)) {
-				throw new Error("Argument '" + name + "' in function " + funcname + " was expected to be '" + type + "' but instead was called with value " + arg  + "."); 
+				throw new Error("Argument '" + name + "' in function '" + funcname + "' was expected to be of type '" + type + "' but instead was called with value: " + arg); 
 			}
 		}
 	}
 
 	function getFunctionDef(args, glMethods) {
-			var argTypes, glMethod, glType, i, j; 
+			var args, glMethod, glType; 
 			//get Correct reference function
-			argTypes = []; 
+			args = args.map(function(arg) { return arg; }); ; 
 
-			for( i = 0; i != args.length; i++ ) {
-				argTypes[i] = toType( args[i] ); 
-			}
+			return glMethods.filter(function(glMethod) {				
+				if(glMethod.args.length !== args.length) { 
+					return false; 
+				} 
 
-			checkMethodsLoop: 
-			for( i = 0; i != glMethods.length; i++ ) {
-				glMethod = glMethods[i]; 
-
-				if(glMethod.args.length !== args.length) {
-					continue; 
-				}
-			
-				for( j = 0; j != args.length; j++ ) {
-					glType = glMethod.args[j].type; 
-
-					if(!checkType[glType](args[j])) {
-						continue checkMethodsLoop; 
-					}
-				}
-
-				return glMethod; 
-			}
-
-			return null; 
+				var i = 0; 
+				return glMethod.args.every(function(glarg) {
+					var ret = checkType[glarg.type](args[i++]); 
+					return ret; 
+				});
+			})[0]; //undefined for no matches 
 	}
 
 	// ~~~ Type checking methods ~~~  
-	function checkType() {	
-		var types = arguments; 	
-		return function(v) {
-			for(var i = 0; i != types.length; i++) {
-				if(v === null || toType(v) === types[i].toLowerCase()) {
-					return true; 
-				} 
-			}
-			return false; 
+	function checkType() {
+		var possibleTypes = argumentsToArray(arguments).map(function(type) { return type.toLowerCase(); });
+		return function(value) {
+			var valueType = toType(value); 
+			return possibleTypes.some(function(type) { return valueType === type; }); 
 		}
 	}
 
@@ -266,7 +252,7 @@ window["WebGLRenderingContext"]["prototype"]["getSaveContext"] =
 	}
 
 	function isInt(v) {
-		return typeof v === "number" && v === (~~v); 
+		return typeof v === "number" && v === ~~v; 
 	}
 
 	function isBool(v) {
