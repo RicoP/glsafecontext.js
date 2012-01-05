@@ -40,5 +40,3 @@ Doing that however with a safe context will result in a error.
 This helps you writing much more reliable code.
 
 Have fun! 
-
-
