@@ -1,9 +1,9 @@
 glSafeContext.js
 ================
 
-One problem with learning WebGL lays in the nature of javascript to accept every kind of function parameter. Even when you call a methoud with wrong argument types the method will fail silently you have to prepare yourself with a long debuging session in order to find the bug. 
+One problem with learning WebGL lays in the nature of javascript to accept every kind of function parameter. Even when you call a methoud with wrong argument types the method will fail silently and you have to prepare yourself with a long debuging session in order to find the bug. 
 
-This Library makes WebGL behave much more finicky and shows errors of you much more direct. It checks every method argument parameter for the right type and issues wrong datatypes much more direct. 
+This Library makes WebGL behave much more finicky. It shows errors of you much more direct. It checks every method argument parameter for the right type and issues wrong datatypes much more direct. 
 
 usage
 -----
