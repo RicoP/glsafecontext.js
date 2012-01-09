@@ -67,8 +67,26 @@ var checkValue = {
 	"long"                 : isInt
 };
 
-function saveContext (gl) { 
-	var key, value, i, pair, savegl, map, keys; 
+function saveContext (gl, opt) { 
+	var key, value, i, pair, savegl, map, keys, error; 	
+
+	if(typeof opt === "string") {
+		if(opt === "error") {
+			error = throwError; 
+		}
+		else if(opt === "warn") {
+			error = showWarning; 
+		}
+		else {
+			throw new Error("can't process the option '" + opt + "!"); 
+		}
+	} 
+	else if(typeof opt === "function") {
+		error = opt; 
+	}
+	else {
+		error = showWarning; 
+	}
 
 	keys = []; 
 
@@ -85,7 +103,7 @@ function saveContext (gl) {
 		type = typeof val; 
 
 		if(type === "function") {
-			return [key, createSaveCaller(gl, val, key)]; 
+			return [key, createSaveCaller(gl, val, key, error)]; 
 		}
 	
 		return [key]; 
@@ -117,7 +135,7 @@ function saveContext (gl) {
 	return savegl; 
 }
 
-function createSaveCaller (gl, func, funcname) {
+function createSaveCaller (gl, func, funcname, error) {
 	var glMethods = METHODS[funcname]; 
 	if( !glMethods ) {
 		console.warn("couldn't find reference definition for method " + funcname + "."); 
@@ -131,7 +149,7 @@ function createSaveCaller (gl, func, funcname) {
 		var funcDef = getFunctionDef(argumentsToArray(arguments), glMethods); 
 
 		if(!funcDef) {
-			throw new Error("couldn't apply arguments (" 
+			error("couldn't apply arguments (" 
 				+ argumentsToArray(arguments).join(", ") 
 				+ ") to any of the possible schemas:\n" 
 				+ glMethods.map(function(m) { 
@@ -139,11 +157,13 @@ function createSaveCaller (gl, func, funcname) {
 				  }).join("\n,") 
 			); 
 		}
-
-		testArgumentValues(argumentsToArray(arguments), funcDef, funcname);
+		else {
+			testArgumentValues(argumentsToArray(arguments), funcDef, funcname, error);
+			//call original function 
+			return func.apply(gl, arguments); 
+		}
 		
-		//call original function 
-		return func.apply(gl, arguments); 
+		return null; 
 	};
 }
 
@@ -151,7 +171,7 @@ function argumentsToArray(args) {
 	return Array.prototype.slice.call(args); 
 }
 
-function testArgumentValues(args, funcDef, funcname) {
+function testArgumentValues(args, funcDef, funcname, error) {
 	var arg, type, name, i; 
 	//check Arguments 
 	//check if type is correct
@@ -161,7 +181,8 @@ function testArgumentValues(args, funcDef, funcname) {
 		name = funcDef.args[i].name; 
 
 		if(!checkValue[type](arg)) {
-			throw new Error("Argument '" + name + "' in function '" + funcname + "' was expected to be of type '" + type + "' but instead was called with value: " + arg); 
+			error("Argument '" + name + "' in function '" + funcname + "' was expected to be of type '" + type + "' but instead was called with value: " + arg); 
+			return; 
 		}
 	}
 }
@@ -182,6 +203,14 @@ function getFunctionDef(args, glMethods) {
 				return ret; 
 			});
 		})[0]; //undefined for no matches 
+}
+
+function throwError(text) {
+	throw new Error(text); 
+}
+
+function showWarning(text) {
+	console.warn(text); 
 }
 
 // ~~~ Type checking methods ~~~  
