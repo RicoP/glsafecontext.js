@@ -1,4 +1,4 @@
-glSaVeContext.js
+glSaveContext.js
 ================
 
 One problem with learning WebGL lies in the nature of javascript to accept every kind of function parameter. Even when you call a method with wrong argument types the method will fail silently and you have to prepare yourself for a long debuging session.

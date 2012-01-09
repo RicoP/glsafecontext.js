@@ -17,7 +17,9 @@ methods = webGlContext.members.filter(function(m) {
 	return m.type === "operation"; 
 }); 
 
-finalObject = {}; 
+finalObject = {
+  "releaseShaderCompiler" : [ { "args" : [] } ] // Not part of the official WebGL Standard but often implemented. 
+}; 
 
 for(i = 0; i != methods.length; i++) {
 	isSequence = false; 
