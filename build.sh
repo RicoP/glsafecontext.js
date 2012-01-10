@@ -1,5 +1,4 @@
 #!/bin/sh
-interleave src/utils/constands.main.js -o src/utils/constands.js
 cd src/utils/
 node constands.js > glmethods.js 
 cd ../../

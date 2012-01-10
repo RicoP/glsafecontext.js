@@ -45,7 +45,7 @@ var checkValue = {
 	"GLboolean"            : isBool, 
 	"GLclampf"             : isClampf, 
 	"GLenum"               : isInt, 
-	"GLfloat"              : isFloat, 
+	"GLfloat"              : ok, 
 	"GLint"                : isInt, 
 	"GLintptr"             : isInt, 
 	"GLsizei"              : isInt, 
@@ -63,7 +63,7 @@ var checkValue = {
 	"WebGLShader"          : ok, 
 	"WebGLTexture"         : ok, 
 	"WebGLUniformLocation" : ok, 
-	"float"                : isFloat, 
+	"float"                : ok, 
 	"long"                 : isInt
 };
 
@@ -233,7 +233,7 @@ function isArrayBuffer(v) {
 
 function isFloatArray(v) {
 	var type = toType(v); 
-	if(type === "float32array" || type === "floatarray") {
+	if(type === "float32array" || type === "null") {
 		return true;
 	}
 
@@ -251,7 +251,7 @@ function isFloatArray(v) {
 
 function isInt32Array(v) {
 	var type = toType(v); 
-	if(type === "int32array") {
+	if(type === "int32array" || type === "null") {
 		return true; 
 	}
 
@@ -269,10 +269,6 @@ function isInt32Array(v) {
 
 function isString(v) {
 	return v === null || typeof v === "string"; 
-}
-
-function isFloat(v) {
-	return typeof v === "number"; 
 }
 
 function isInt(v) {
