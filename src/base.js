@@ -188,10 +188,6 @@ function testArgumentValues(args, funcDef, funcname, error) {
 }
 
 function getFunctionDef(args, glMethods) {
-		var args, glMethod, glType; 
-		//get Correct reference function
-		args = args.map(function(arg) { return arg; }); ; 
-
 		return glMethods.filter(function(glMethod) {				
 			if(glMethod.args.length !== args.length) { 
 				return false; 
@@ -269,6 +265,10 @@ function isInt32Array(v) {
 
 function isString(v) {
 	return v === null || typeof v === "string"; 
+}
+
+function isFloat(v) {
+	return typeof v === "number"; 
 }
 
 function isInt(v) {

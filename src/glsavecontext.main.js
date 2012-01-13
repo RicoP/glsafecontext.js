@@ -5,4 +5,3 @@ if(window["WebGLRenderingContext"]) {
 		return function(option) { return saveContext(this, option); }; 
 	}()); 
 }
-
