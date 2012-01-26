@@ -182,7 +182,7 @@ if(window["WebGLRenderingContext"]) {
 					return func.apply(gl, arguments); 
 				}
 				
-				return null; 
+				return func.apply(gl, arguments); 
 			};
 		}
 		

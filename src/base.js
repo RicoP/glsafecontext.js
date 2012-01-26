@@ -163,7 +163,7 @@ function createSaveCaller (gl, func, funcname, error) {
 			return func.apply(gl, arguments); 
 		}
 		
-		return null; 
+		return func.apply(gl, arguments); 
 	};
 }
 
