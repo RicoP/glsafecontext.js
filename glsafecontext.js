@@ -10,7 +10,7 @@ Permission is granted to anyone to use this software for any purpose, including 
  - This notice may not be removed or altered from any source distribution.
 */
 if(window["WebGLRenderingContext"]) {
-	window["WebGLRenderingContext"]["prototype"]["getSaveContext"] = 
+	window["WebGLRenderingContext"]["prototype"]["getSafeContext"] = 
 	(function (){
 		"use strict"; 
 		
@@ -86,8 +86,8 @@ if(window["WebGLRenderingContext"]) {
 			"long"                 : isInt
 		};
 		
-		function saveContext (gl, opt) { 
-			var key, value, i, pair, savegl, map, keys, error; 	
+		function safeContext (gl, opt) { 
+			var key, value, i, pair, safegl, map, keys, error; 	
 		
 			if(typeof opt === "string") {
 				if(opt === "error") {
@@ -110,7 +110,7 @@ if(window["WebGLRenderingContext"]) {
 			keys = []; 
 		
 			for	(key in gl) {
-				if(key === "getSaveContext") {
+				if(key === "getSafeContext") {
 					continue; //ignore myself
 				}
 				keys.push(key); 
@@ -122,13 +122,13 @@ if(window["WebGLRenderingContext"]) {
 				type = typeof val; 
 		
 				if(type === "function") {
-					return [key, createSaveCaller(gl, val, key, error)]; 
+					return [key, createSafeCaller(gl, val, key, error)]; 
 				}
 			
 				return [key]; 
 			});
 		
-			savegl = { "isSaveContext" : true }; 
+			safegl = { "isSafeContext" : true }; 
 		
 			//Add static properties. 
 			for(i = 0; i != map.length; i++) {
@@ -138,11 +138,11 @@ if(window["WebGLRenderingContext"]) {
 			
 				if(value) {
 					//override behaviour with my own function 
-					savegl[key] = value; 
+					safegl[key] = value; 
 				} else {
 					(function(key) { 
 						//same behaviour as the original gl context. 
-						Object.defineProperty(savegl, key, {
+						Object.defineProperty(safegl, key, {
 							get : function() { return gl[key]; }, 
 							set : function(v) { gl[key] = v; }, 
 							enumerable : true 
@@ -151,10 +151,10 @@ if(window["WebGLRenderingContext"]) {
 				}
 			}
 		
-			return savegl; 
+			return safegl; 
 		}
 		
-		function createSaveCaller (gl, func, funcname, error) {
+		function createSafeCaller (gl, func, funcname, error) {
 			var glMethods = METHODS[funcname]; 
 			if( !glMethods ) {
 				console.warn("couldn't find reference definition for method " + funcname + "."); 
@@ -308,7 +308,7 @@ if(window["WebGLRenderingContext"]) {
 		}
 		
 
-		return function(option) { return saveContext(this, option); }; 
+		return function(option) { return safeContext(this, option); }; 
 	}()); 
 }
 

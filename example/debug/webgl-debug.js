@@ -250,7 +250,7 @@ function makeDebugContext(ctx, opt_onErrorFunc) {
      }
   }
 
-  // Override the getError function with one that returns our saved results.
+  // Override the getError function with one that returns our safed results.
   wrapper.getError = function() {
     for (var err in glErrorShadow) {
       if (glErrorShadow.hasOwnProperty(err)) {

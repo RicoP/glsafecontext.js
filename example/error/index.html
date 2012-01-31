@@ -1,12 +1,12 @@
 <!DOCTYPE html "★">
 
-<script type="text/javascript" src="../../glsavecontext.js"></script>
+<script type="text/javascript" src="../../glsafecontext.js"></script>
 <script type="text/javascript">
 window.onload = function() {
 	console.log("hallo"); 
 	var gl = document.createElement("canvas").getContext("experimental-webgl"); 
 
-	var sgl = gl.getSaveContext("error"); 
+	var sgl = gl.getSafeContext("error"); 
 
 	window.setTimeout(function() {
 		sgl.clearColor(0,0,0,"hallo"); //error. type 

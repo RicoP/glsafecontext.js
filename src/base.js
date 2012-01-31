@@ -67,8 +67,8 @@ var checkValue = {
 	"long"                 : isInt
 };
 
-function saveContext (gl, opt) { 
-	var key, value, i, pair, savegl, map, keys, error; 	
+function safeContext (gl, opt) { 
+	var key, value, i, pair, safegl, map, keys, error; 	
 
 	if(typeof opt === "string") {
 		if(opt === "error") {
@@ -91,7 +91,7 @@ function saveContext (gl, opt) {
 	keys = []; 
 
 	for	(key in gl) {
-		if(key === "getSaveContext") {
+		if(key === "getSafeContext") {
 			continue; //ignore myself
 		}
 		keys.push(key); 
@@ -103,13 +103,13 @@ function saveContext (gl, opt) {
 		type = typeof val; 
 
 		if(type === "function") {
-			return [key, createSaveCaller(gl, val, key, error)]; 
+			return [key, createSafeCaller(gl, val, key, error)]; 
 		}
 	
 		return [key]; 
 	});
 
-	savegl = { "isSaveContext" : true }; 
+	safegl = { "isSafeContext" : true }; 
 
 	//Add static properties. 
 	for(i = 0; i != map.length; i++) {
@@ -119,11 +119,11 @@ function saveContext (gl, opt) {
 	
 		if(value) {
 			//override behaviour with my own function 
-			savegl[key] = value; 
+			safegl[key] = value; 
 		} else {
 			(function(key) { 
 				//same behaviour as the original gl context. 
-				Object.defineProperty(savegl, key, {
+				Object.defineProperty(safegl, key, {
 					get : function() { return gl[key]; }, 
 					set : function(v) { gl[key] = v; }, 
 					enumerable : true 
@@ -132,10 +132,10 @@ function saveContext (gl, opt) {
 		}
 	}
 
-	return savegl; 
+	return safegl; 
 }
 
-function createSaveCaller (gl, func, funcname, error) {
+function createSafeCaller (gl, func, funcname, error) {
 	var glMethods = METHODS[funcname]; 
 	if( !glMethods ) {
 		console.warn("couldn't find reference definition for method " + funcname + "."); 
