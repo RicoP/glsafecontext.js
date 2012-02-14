@@ -24,8 +24,8 @@ if(window["WebGLRenderingContext"]) {
 		
 		var checkType = {
 			//OpenGL Type                      JS Types 
-			"ArrayBuffer"          : checkType("null", "ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
-			"ArrayBufferView"      : checkType("null", "ArrayBuffer", "Float32Array", "Int32Array", "Array"), 
+			"ArrayBuffer"          : checkType("null", "ArrayBuffer", "Float32Array", "Float64Array", "Int16Array", "Int32Array", "Int8Array", "Uint16Array", "Uint32Array", "Uint8Array", "Uint8ClampedArray", "Array"), 
+			"ArrayBufferView"      : checkType("null", "ArrayBuffer", "Float32Array", "Float64Array", "Int16Array", "Int32Array", "Int8Array", "Uint16Array", "Uint32Array", "Uint8Array", "Uint8ClampedArray", "Array"), 
 			"DOMString"            : checkType("null", "string"), 
 			"FloatArray"           : checkType("null", "Float32Array", "Array"), 
 			"GLbitfield"           : checkType("number"), 
@@ -56,10 +56,10 @@ if(window["WebGLRenderingContext"]) {
 		
 		var checkValue = {
 			//OpenGL Type            Way to check the correct value 
-			"ArrayBuffer"          : isArrayBuffer,  
-			"ArrayBufferView"      : isArrayBuffer, 
+			"ArrayBuffer"          : checkFloatArray,
+			"ArrayBufferView"      : checkFloatArray,
 			"DOMString"            : ok, 
-			"FloatArray"           : isFloatArray, 
+			"FloatArray"           : checkFloatArray, 
 			"GLbitfield"           : isInt, 
 			"GLboolean"            : isBool, 
 			"GLclampf"             : isClampf, 
@@ -74,7 +74,7 @@ if(window["WebGLRenderingContext"]) {
 			"HTMLImageElement"     : ok, 
 			"HTMLVideoElement"     : ok, 
 			"ImageData"            : ok, 
-			"Int32Array"           : isInt32Array, 
+			"Int32Array"           : checkIntArray, 
 			"WebGLBuffer"          : ok, 
 			"WebGLFrameBuffer"     : ok, 
 			"WebGLProgram"         : ok, 
@@ -242,15 +242,8 @@ if(window["WebGLRenderingContext"]) {
 			return true; 
 		}
 		
-		function isArrayBuffer(v) {
-			return isFloatArray(v) || isInt32Array(v) || toType(v) === "arraybuffer" || toType(v) === "arraybufferview"; 
-		}
-		
-		function isFloatArray(v) {
+		function checkFloatArray(v) {
 			var type = toType(v); 
-			if(type === "float32array" || type === "null") {
-				return true;
-			}
 		
 			if(type === "array") {
 				for(var i = 0; i != v.length; i++) {
@@ -258,17 +251,13 @@ if(window["WebGLRenderingContext"]) {
 						return false; 
 					}
 				}
-				return true; 
 			}
 		
-			return false; 
+			return true; 
 		}
 		
-		function isInt32Array(v) {
+		function checkIntArray(v) {
 			var type = toType(v); 
-			if(type === "int32array" || type === "null") {
-				return true; 
-			}
 		
 			if(type === "array") {
 				for(var i = 0; i != v.length; i++) {
@@ -276,10 +265,9 @@ if(window["WebGLRenderingContext"]) {
 						return false; 
 					}
 				}
-				return true; 
 			}
 		
-			return false; 
+			return true; 
 		}
 		
 		function isString(v) {
