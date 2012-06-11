@@ -40,7 +40,7 @@ function initWebGL(canvasName) {
     if (!gl) {
         window.alert("Fatal error: could not initialize WebGL context.");
     }
-    return gl.getSaveContext();
+    return gl; 
 }
 
                 
