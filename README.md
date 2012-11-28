@@ -46,6 +46,4 @@ License
 
 See LICENSE.TXT. 
 
-Donations
----------
-Using this library is free of charge. However in case you want to show me your appreciation in some way, feel free to drop a little donation. http://pledgie.com/campaigns/16570
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=RicoP&url=https://github.com/RicoP/glsafecontext.js&title=glSafeContesxt.js&language=&tags=github&category=software)
