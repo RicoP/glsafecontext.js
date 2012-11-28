@@ -46,4 +46,4 @@ License
 
 See LICENSE.TXT. 
 
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=RicoP&url=https://github.com/RicoP/glsafecontext.js&title=glSafeContesxt.js&language=&tags=github&category=software)
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=RicoTweet&url=https://github.com/RicoP/glsafecontext.js&title=glSafeContesxt.js&language=&tags=github&category=software)
